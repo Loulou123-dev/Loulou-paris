@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fiche produit — Loulou Paris</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ivory: #FBF2EF; --blush:#F3D9DD; --berry:#A73B58; --berry-deep:#7C2740;
+    --gold:#C9A66B; --ink:#2B1B1E; --ink-soft:#5C4348; --white:#FFFFFF;
+  }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--ivory); color:var(--ink); font-family:'Manrope',sans-serif; line-height:1.7; }
+  .wrap{ max-width: 1000px; margin:0 auto; padding: 32px 24px 80px; }
+  .back{ display:inline-block; margin-bottom:24px; color:var(--berry-deep); font-weight:700; text-decoration:none; font-size:0.9rem; }
+  .product-grid{ display:grid; grid-template-columns: 1fr 1fr; gap:48px; align-items:start; }
+  .product-media{ aspect-ratio:1/1; border-radius:22px; background: linear-gradient(135deg, var(--blush), var(--ivory)); position:relative; }
+  .product-badge{ position:absolute; top:16px; left:16px; background:var(--berry-deep); color:#fff; font-size:0.75rem; font-weight:700; padding:6px 14px; border-radius:999px; }
+  .product-tag{ color:var(--berry); font-weight:700; font-size:0.85rem; }
+  h1{ font-family:'Fraunces',serif; font-style:italic; color:var(--berry-deep); font-size:2rem; margin:6px 0 14px; }
+  .price{ font-family:'Fraunces',serif; font-size:1.6rem; color:var(--berry-deep); margin-bottom:20px; }
+  .desc{ color:var(--ink-soft); margin-bottom:24px; }
+  .buy-btn{ width:100%; background:var(--berry-deep); color:#fff; border:none; border-radius:999px; padding:16px; font-weight:700; font-size:1rem; cursor:pointer; }
+  .buy-btn:disabled{ background:#d8cdcf; color:var(--ink-soft); cursor:not-allowed; }
+  .accordion{ margin-top:32px; border-top:1px solid rgba(43,27,30,0.12); }
+  .accordion-item{ border-bottom:1px solid rgba(43,27,30,0.12); }
+  .accordion-head{ width:100%; background:none; border:none; text-align:left; padding:16px 0; font-weight:700; color:var(--ink); font-size:0.95rem; cursor:pointer; display:flex; justify-content:space-between; }
+  .accordion-body{ display:none; padding: 0 0 18px; color:var(--ink-soft); font-size:0.9rem; }
+  .accordion-body.open{ display:block; }
+  .inci{ font-size:0.82rem; line-height:1.6; }
+  .allergen-note{ background:var(--blush); color:var(--berry-deep); padding:12px 16px; border-radius:10px; font-size:0.85rem; margin-top:10px; }
+  .placeholder{ background:#F3D9DD; color:var(--berry-deep); padding:1px 6px; border-radius:4px; font-weight:700; }
+  @media (max-width:760px){ .product-grid{ grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="index.html#boutique">&larr; Retour à la boutique</a>
+  <div class="product-grid">
+    <div class="product-media" id="productMedia"></div>
+    <div>
+      <span class="product-tag" id="productTag"></span>
+      <h1 id="productName"></h1>
+      <div class="price" id="productPrice"></div>
+      <p class="desc" id="productDesc"></p>
+      <button class="buy-btn" id="buyBtn"></button>
+
+      <div class="accordion">
+        <div class="accordion-item">
+          <button class="accordion-head">Composition (INCI)<span>+</span></button>
+          <div class="accordion-body">
+            <p class="inci" id="productInci"></p>
+            <p style="font-size:0.8rem;">Liste communiquée par le fabricant — <span class="placeholder">à intégrer telle quelle depuis la fiche technique fournisseur avant mise en ligne réelle</span>, sans reformulation, conformément au règlement cosmétique (CE) n°1223/2009.</p>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-head">Allergènes<span>+</span></button>
+          <div class="accordion-body">
+            <p id="productAllergens"></p>
+            <div class="allergen-note">En cas de doute ou d'antécédent allergique, réalise un test au pli du coude 48h avant la première application.</div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-head">Livraison &amp; retours<span>+</span></button>
+          <div class="accordion-body">
+            <p>Délais et frais de livraison : <span class="placeholder">à compléter</span>. Un produit descellé ne peut pas être repris pour des raisons d'hygiène — voir nos <a href="cgv.html">CGV</a>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Base produit de démonstration — à terme, une seule source de vérité partagée avec la boutique
+  // (actuellement dupliquée depuis index.html : à connecter à un vrai catalogue plus tard).
+  // "paymentLink" : URL du lien de paiement Stripe, ajoutée seulement une fois le contrat signé.
+  const catalog = {
+    "palette-regard-cocon": {
+      name: "Palette Regard Cocon", tag: "Signature", price: "38 €", available: false, stock: "disponible", paymentLink: null,
+      desc: "Une palette de six teintes mates et satinées, pensée pour un regard doux au quotidien comme pour un rendu plus intense en soirée.",
+      inci: "[Placeholder] Talc, Mica, Dimethicone, Magnesium Stearate, Silica, Caprylic/Capric Triglyceride, Tocopherol, CI 77891, CI 77491, CI 77499, CI 15850, Parfum/Fragrance.",
+      allergens: "[Placeholder] Contient du parfum. Traces possibles de fruits à coque (huiles végétales)."
+    },
+    "rouge-velours-berry": {
+      name: "Rouge Velours Berry", tag: "Signature", price: "24 €", available: false, stock: "disponible", paymentLink: null,
+      desc: "Un rouge à lèvres fini velouté, confortable, dans la teinte signature de la marque.",
+      inci: "[Placeholder] Ricinus Communis Seed Oil, Candelilla Cera, Ozokerite, Mica, CI 15850, Tocopherol, Parfum/Fragrance.",
+      allergens: "[Placeholder] Contient de l'huile de ricin et du parfum."
+    },
+    "fond-de-teint-peau-nue": {
+      name: "Fond de teint Peau Nue", tag: "Essentiels", price: "32 €", available: false, stock: "disponible", paymentLink: null,
+      desc: "Un fond de teint fluide effet seconde peau, disponible en plusieurs sous-tons.",
+      inci: "[Placeholder] Aqua, Dimethicone, Glycerin, Titanium Dioxide, Niacinamide, Phenoxyethanol, Parfum/Fragrance.",
+      allergens: "[Placeholder] Sans huiles essentielles. Contient du parfum."
+    },
+    "serum-eclat-teint": {
+      name: "Sérum éclat teint", tag: "Cocon", price: "29 €", available: false, stock: "disponible", paymentLink: null,
+      desc: "Un sérum léger qui prépare la peau et unifie le teint avant maquillage.",
+      inci: "[Placeholder] Aqua, Glycerin, Niacinamide, Sodium Hyaluronate, Tocopherol, Phenoxyethanol.",
+      allergens: "[Placeholder] Sans parfum ajouté."
+    },
+    "blush-poudre-de-soie": {
+      name: "Blush Poudre de Soie", tag: "Essentiels", price: "22 €", available: false, stock: "disponible", paymentLink: null,
+      desc: "Un blush poudre ultra-fin, fini naturel, longue tenue.",
+      inci: "[Placeholder] Talc, Mica, Magnesium Stearate, CI 15850, CI 19140, Parfum/Fragrance.",
+      allergens: "[Placeholder] Contient du parfum."
+    },
+    "pinceau-biseaute-pro": {
+      name: "Pinceau biseauté pro", tag: "Sélection partenaire", price: "16 €", available: false, stock: "disponible", paymentLink: null,
+      desc: "Pinceau biseauté pour une application précise, poils synthétiques doux.",
+      inci: "Non applicable (accessoire, non cosmétique).",
+      allergens: "Non applicable."
+    }
+  };
+
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id') || 'palette-regard-cocon';
+  const p = catalog[id] || catalog['palette-regard-cocon'];
+
+  document.getElementById('productTag').textContent = p.tag;
+  document.getElementById('productName').textContent = p.name;
+  document.getElementById('productPrice').textContent = p.price;
+  document.getElementById('productDesc').textContent = p.desc;
+  document.getElementById('productInci').textContent = p.inci;
+  document.getElementById('productAllergens').textContent = p.allergens;
+
+  const buyBtn = document.getElementById('buyBtn');
+  const media = document.getElementById('productMedia');
+  if (!p.available){
+    buyBtn.textContent = "Pas encore en vente";
+    buyBtn.disabled = true;
+    media.innerHTML = '<span class="product-badge">Bientôt disponible</span>';
+  } else if (p.stock === "epuise"){
+    buyBtn.textContent = "Rejoindre la liste d'attente";
+    media.innerHTML = '<span class="product-badge">Épuisé</span>';
+    buyBtn.addEventListener('click', () => alert(`Inscrite en liste d'attente pour ${p.name}`));
+  } else if (!p.paymentLink){
+    buyBtn.textContent = "Achat bientôt activé";
+    buyBtn.disabled = true;
+  } else {
+    buyBtn.textContent = "Acheter";
+    buyBtn.addEventListener('click', () => { window.location.href = p.paymentLink; });
+  }
+
+  document.querySelectorAll('.accordion-head').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const body = btn.nextElementSibling;
+      const isOpen = body.classList.toggle('open');
+      btn.querySelector('span').textContent = isOpen ? '–' : '+';
+    });
+  });
+</script>
+</body>
+</html>
