@@ -165,6 +165,7 @@
     aspect-ratio: 1/1;
     background: linear-gradient(135deg, var(--blush), var(--ivory));
     position:relative;
+    display:flex; align-items:center; justify-content:center;
   }
   .card-body{ padding: 22px 22px 26px; display:flex; flex-direction:column; gap:8px; flex:1; }
   .card-tag{ font-size:0.78rem; font-weight:700; color: var(--berry); text-transform: none; }
@@ -186,6 +187,46 @@
   .prelaunch-banner{
     background: var(--berry-deep); color: var(--white); text-align:center;
     font-size: 0.88rem; font-weight:600; padding: 10px 20px;
+  }
+
+  /* ÉCRAN D'ACCUEIL — prénom + Chaussettes */
+  .welcome-gate{
+    position:fixed; inset:0; z-index:999;
+    background: linear-gradient(160deg, var(--accent), var(--berry-deep));
+    display:flex; align-items:center; justify-content:center; padding:24px;
+  }
+  .welcome-gate.hidden{ display:none; }
+  .welcome-card{
+    background: var(--white); border-radius: 28px; padding: 40px 32px;
+    max-width: 380px; width:100%; text-align:center; box-shadow: 0 24px 60px rgba(0,0,0,0.28);
+  }
+  .welcome-cat-wrap{
+    position:relative; width:120px; height:120px; margin:0 auto 18px;
+    animation: catBounce 2.4s ease-in-out infinite;
+  }
+  .welcome-cat{
+    position:absolute; inset:0; width:120px; height:120px; border-radius:50%; object-fit:cover;
+    border:4px solid var(--gold); display:block;
+  }
+  .cat-a{ animation: catFadeA 1.8s steps(1) infinite; }
+  .cat-b{ animation: catFadeB 1.8s steps(1) infinite; }
+  @keyframes catFadeA{ 0%,49%{ opacity:1; } 50%,100%{ opacity:0; } }
+  @keyframes catFadeB{ 0%,49%{ opacity:0; } 50%,100%{ opacity:1; } }
+  @keyframes catBounce{
+    0%,100%{ transform: translateY(0) rotate(0deg); }
+    50%{ transform: translateY(-8px) rotate(-3deg); }
+  }
+  .welcome-card h2{ font-family:'Fraunces', serif; font-style:italic; color:var(--berry-deep); font-size:1.35rem; margin-bottom:8px; }
+  .welcome-card p{ color:var(--ink-soft); font-size:0.9rem; margin:0 0 20px; max-width:none; }
+  #welcomeName{
+    width:100%; padding:13px 16px; border-radius:999px; border:1px solid rgba(43,27,30,0.2);
+    font-family:'Manrope',sans-serif; font-size:1rem; margin-bottom:14px; text-align:center;
+    box-sizing:border-box;
+  }
+  .welcome-card .btn-primary{ width:100%; }
+  @media (prefers-reduced-motion: reduce){
+    .welcome-cat-wrap, .cat-a, .cat-b{ animation:none; }
+    .cat-a{ opacity:1; } .cat-b{ opacity:0; }
   }
 
   /* SIMULATOR */
@@ -257,6 +298,7 @@
   .hand-media{
     aspect-ratio: 4/3; position:relative;
     background: linear-gradient(135deg, var(--blush), var(--ivory));
+    display:flex; align-items:center; justify-content:center;
   }
   .hand-body{ padding: 22px 24px 26px; }
   .hand-body h3{ font-family:'Fraunces', serif; font-style:italic; font-size:1.25rem; color:var(--berry-deep); margin-bottom:4px; }
@@ -328,6 +370,19 @@
 </style>
 </head>
 <body>
+
+<div id="welcomeGate" class="welcome-gate">
+  <div class="welcome-card">
+    <div class="welcome-cat-wrap">
+      <img src="chaussettes.jpg" alt="Chaussettes, le chat" class="welcome-cat cat-a">
+      <img src="chaussettes-2.jpg" alt="Chaussettes, le chat" class="welcome-cat cat-b">
+    </div>
+    <h2>Avant d'entrer chez Loulou Paris...</h2>
+    <p>Chaussettes a une pensée du jour pour toi.</p>
+    <input type="text" id="welcomeName" placeholder="Ton prénom" maxlength="24" autocomplete="off">
+    <button class="btn-primary" id="welcomeEnter" type="button">Entrer</button>
+  </div>
+</div>
 
 <div class="prelaunch-banner">Site en préparation — vente non ouverte tant que les contrats fournisseurs ne sont pas signés</div>
 <header>
@@ -545,13 +600,61 @@
   // Reste à null tant que le contrat fournisseur pour CE produit n'est pas signé.
   // Une fois signé : passer "available" à true ET coller ici le lien Stripe créé pour ce produit.
   const products = [
-    { tag: "Signature", name: "Palette Regard Cocon", price: "38 €", available: false, stock: "disponible", paymentLink: null },
-    { tag: "Signature", name: "Rouge Velours Berry", price: "24 €", available: false, stock: "disponible", paymentLink: null },
-    { tag: "Essentiels", name: "Fond de teint Peau Nue", price: "32 €", available: false, stock: "disponible", paymentLink: null },
-    { tag: "Cocon", name: "Sérum éclat teint", price: "29 €", available: false, stock: "disponible", paymentLink: null },
-    { tag: "Essentiels", name: "Blush Poudre de Soie", price: "22 €", available: false, stock: "disponible", paymentLink: null },
-    { tag: "Sélection partenaire", name: "Pinceau biseauté pro", price: "16 €", available: false, stock: "disponible", paymentLink: null },
+    { tag: "Signature", name: "Palette Regard Cocon", price: "38 €", available: false, stock: "disponible", paymentLink: null, visual: "palette" },
+    { tag: "Signature", name: "Rouge Velours Berry", price: "24 €", available: false, stock: "disponible", paymentLink: null, visual: "lipstick" },
+    { tag: "Essentiels", name: "Fond de teint Peau Nue", price: "32 €", available: false, stock: "disponible", paymentLink: null, visual: "bottle" },
+    { tag: "Cocon", name: "Sérum éclat teint", price: "29 €", available: false, stock: "disponible", paymentLink: null, visual: "serum" },
+    { tag: "Essentiels", name: "Blush Poudre de Soie", price: "22 €", available: false, stock: "disponible", paymentLink: null, visual: "blush" },
+    { tag: "Sélection partenaire", name: "Pinceau biseauté pro", price: "16 €", available: false, stock: "disponible", paymentLink: null, visual: "brush" },
   ];
+
+  // Illustrations dessinées à la main (vecteur), pas des photos — pour visualiser les produits
+  // sans reproduire des visuels appartenant à des fournisseurs tiers.
+  const productIcons = {
+    palette: `<svg viewBox="0 0 120 120" width="76" height="76">
+      <rect x="8" y="8" width="104" height="20" rx="6" fill="var(--berry-deep)"/>
+      <rect x="8" y="28" width="104" height="84" rx="8" fill="var(--white)" stroke="var(--berry-deep)" stroke-width="2"/>
+      <circle cx="32" cy="58" r="13" fill="var(--blush)"/>
+      <circle cx="60" cy="58" r="13" fill="var(--gold)"/>
+      <circle cx="88" cy="58" r="13" fill="var(--berry)"/>
+      <circle cx="32" cy="88" r="11" fill="var(--accent)"/>
+      <circle cx="60" cy="88" r="11" fill="var(--accent-2)"/>
+      <circle cx="88" cy="88" r="11" fill="var(--berry-deep)"/>
+    </svg>`,
+    lipstick: `<svg viewBox="0 0 120 120" width="60" height="90">
+      <path d="M42 10 L78 10 L74 40 L46 40 Z" fill="var(--berry)"/>
+      <rect x="44" y="40" width="32" height="48" fill="var(--gold)"/>
+      <rect x="40" y="88" width="40" height="24" rx="6" fill="var(--ink)"/>
+      <rect x="40" y="88" width="40" height="6" fill="var(--berry-deep)"/>
+    </svg>`,
+    bottle: `<svg viewBox="0 0 120 120" width="64" height="92">
+      <rect x="46" y="4" width="28" height="16" rx="3" fill="var(--gold)"/>
+      <rect x="36" y="20" width="48" height="92" rx="10" fill="var(--white)" stroke="var(--berry-deep)" stroke-width="2"/>
+      <rect x="40" y="55" width="40" height="53" rx="6" fill="var(--berry)" opacity="0.55"/>
+    </svg>`,
+    serum: `<svg viewBox="0 0 120 120" width="56" height="94">
+      <rect x="44" y="0" width="32" height="10" rx="3" fill="var(--ink)"/>
+      <rect x="50" y="10" width="20" height="26" fill="var(--gold)"/>
+      <rect x="38" y="36" width="44" height="68" rx="8" fill="var(--berry-deep)"/>
+      <rect x="46" y="50" width="28" height="40" rx="4" fill="var(--white)" opacity="0.25"/>
+    </svg>`,
+    blush: `<svg viewBox="0 0 120 120" width="78" height="78">
+      <circle cx="60" cy="60" r="52" fill="var(--white)" stroke="var(--gold)" stroke-width="4"/>
+      <circle cx="60" cy="60" r="36" fill="var(--accent)"/>
+      <circle cx="60" cy="60" r="36" fill="var(--blush)" opacity="0.35"/>
+    </svg>`,
+    brush: `<svg viewBox="0 0 120 120" width="58" height="98">
+      <ellipse cx="58" cy="24" rx="26" ry="20" fill="var(--berry)"/>
+      <ellipse cx="58" cy="24" rx="26" ry="20" fill="var(--ink)" opacity="0.08"/>
+      <rect x="52" y="40" width="12" height="28" fill="var(--gold)"/>
+      <rect x="55" y="68" width="6" height="48" fill="var(--ink)"/>
+    </svg>`,
+    handset: `<svg viewBox="0 0 120 120" width="90" height="60">
+      <circle cx="30" cy="60" r="19" fill="none" stroke="var(--gold)" stroke-width="6"/>
+      <circle cx="60" cy="60" r="19" fill="none" stroke="var(--berry-deep)" stroke-width="6"/>
+      <circle cx="90" cy="60" r="19" fill="none" stroke="var(--gold)" stroke-width="6"/>
+    </svg>`,
+  };
 
   const grid = document.getElementById('productGrid');
   function slugify(str){
@@ -576,7 +679,7 @@
       btnLabel = "Acheter"; action = 'pay';
     }
     card.innerHTML = `
-      <div class="card-media">${badge}</div>
+      <div class="card-media">${productIcons[p.visual] || ''}${badge}</div>
       <div class="card-body">
         <span class="card-tag">${p.tag}</span>
         <h3><a href="produit.html?id=${slugify(p.name)}" style="color:inherit; text-decoration:none;">${p.name}</a></h3>
@@ -608,7 +711,7 @@
     const card = document.createElement('div');
     card.className = 'hand-card';
     card.innerHTML = `
-      <div class="hand-media"><span class="soon-badge sold-out">Épuisé — 1er tirage</span></div>
+      <div class="hand-media">${productIcons.handset}<span class="soon-badge sold-out">Épuisé — 1er tirage</span></div>
       <div class="hand-body">
         <h3>${h.name}</h3>
         <p class="hand-desc">${h.desc}</p>
@@ -637,8 +740,47 @@
     const t = document.getElementById('toast');
     t.textContent = msg;
     t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 2200);
+    setTimeout(() => t.classList.remove('show'), 2600);
   }
+
+  // ---- Écran d'accueil : prénom + pensées du jour inspirées de Chaussettes ----
+  const catQuips = [
+    n => `${n}, Chaussettes valide ce choix d'un battement de queue.`,
+    n => `Petite pensée féline : ${n}, aujourd'hui sera doux comme du poil de chat.`,
+    n => `${n}, Chaussettes a encore piqué une chaussette ce matin — comme quoi, personne n'est parfait.`,
+    n => `Ronron du jour pour ${n} : tu illumines la pièce, même plus que le coin de soleil préféré de Chaussettes.`,
+    n => `${n}, Chaussettes te souhaite une journée aussi tranquille qu'une sieste de 16h.`,
+    n => `Pensée positive livrée par Chaussettes à ${n} : tu gères, même les jours de poils partout.`,
+    n => `${n}, comme Chaussettes face à une chaussette : tu es irrésistible aujourd'hui.`,
+    n => `Chaussettes approuve, ${n} — et il n'approuve pas grand-chose d'habitude.`,
+    n => `${n}, respire, souris : Chaussettes le fait bien 20h par jour sans effort.`,
+  ];
+  let userName = "toi";
+  const welcomeGateEl = document.getElementById('welcomeGate');
+  const welcomeNameEl = document.getElementById('welcomeName');
+  const welcomeEnterEl = document.getElementById('welcomeEnter');
+
+  function randomCatQuip(name){
+    const pick = catQuips[Math.floor(Math.random() * catQuips.length)];
+    return pick(name);
+  }
+
+  function enterSite(){
+    const val = welcomeNameEl.value.trim();
+    userName = val || "toi";
+    welcomeGateEl.classList.add('hidden');
+    showToast(randomCatQuip(userName));
+  }
+  welcomeEnterEl.addEventListener('click', enterSite);
+  welcomeNameEl.addEventListener('keydown', (e) => { if (e.key === 'Enter') enterSite(); });
+
+  // Une pensée surprise de temps en temps, sur les clics de bouton du site (une fois entré).
+  document.body.addEventListener('click', (e) => {
+    if (!welcomeGateEl.classList.contains('hidden') || e.target.id === 'welcomeEnter') return;
+    if (e.target.tagName === 'BUTTON' && Math.random() < 0.3) {
+      showToast(randomCatQuip(userName));
+    }
+  });
 
   document.getElementById('newsForm').addEventListener('submit', (e) => {
     e.preventDefault();
