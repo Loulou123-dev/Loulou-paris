@@ -772,6 +772,8 @@
   let mode = "camera"; // "photo" | "camera" — caméra par défaut, visible dès l'ouverture du site
   let stream = null;
   let rafId = null;
+  let cameraSession = 0; // incrémenté à chaque démarrage : empêche deux boucles de tourner en parallèle
+  let cameraRunning = false;
 
   async function initLandmarker(){
     if (faceLandmarker) return faceLandmarker;
@@ -856,10 +858,15 @@
   }
 
   async function startCamera(){
+    if (cameraRunning) return; // déjà en cours : on ignore un second déclenchement
+    cameraRunning = true;
+    const mySession = ++cameraSession; // identifie cette session précise
+    smoothMap = {}; // repart d'un lissage neutre à chaque nouveau démarrage
     try {
       stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } });
     } catch (err){
       simNote.textContent = "Caméra refusée ou indisponible — active-la dans les réglages de ton navigateur, ou utilise le mode photo.";
+      cameraRunning = false;
       return;
     }
     video.srcObject = stream;
@@ -868,7 +875,8 @@
     await lm.setOptions({ runningMode: "VIDEO" });
     window.faceModeActive = true;
     const loop = async () => {
-      if (mode !== "camera") return;
+      // Si le mode a changé OU qu'une session plus récente a démarré entre-temps, cette boucle s'arrête d'elle-même.
+      if (mode !== "camera" || mySession !== cameraSession) return;
       const result = lm.detectForVideo(video, performance.now());
       // Effet miroir optionnel (réglable via le bouton) : inverse le dessin horizontalement
       // pour que ça se comporte comme un vrai miroir sur les appareils où la caméra ne le fait pas déjà.
@@ -887,6 +895,8 @@
   }
 
   function stopCamera(){
+    cameraSession++; // invalide toute boucle encore en vol
+    cameraRunning = false;
     if (rafId) cancelAnimationFrame(rafId);
     if (stream) stream.getTracks().forEach(t => t.stop());
     stream = null;
@@ -916,7 +926,8 @@
   modeCameraBtn.addEventListener('click', () => {
     mode = "camera";
     modeCameraBtn.classList.add('active'); modePhotoBtn.classList.remove('active');
-    dropZoneEl.style.display = 'none'; cameraStartEl.style.display = 'block';
+    dropZoneEl.style.display = 'none';
+    cameraStartEl.style.display = cameraRunning ? 'none' : 'block';
     mirrorToggleEl.style.display = 'block';
   });
 
