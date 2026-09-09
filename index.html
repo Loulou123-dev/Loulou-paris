@@ -13,6 +13,8 @@
     --berry: #A73B58;
     --berry-deep: #7C2740;
     --gold: #C9A66B;
+    --accent: #E8437A;
+    --accent-2: #FFB648;
     --ink: #2B1B1E;
     --ink-soft: #5C4348;
     --white: #FFFFFF;
@@ -64,7 +66,7 @@
   }
   .nav-links a:hover{ border-color: var(--berry); }
   .nav-cta{
-    background: var(--berry-deep); color: var(--white); border:none;
+    background: linear-gradient(135deg, var(--accent), var(--berry-deep)); color: var(--white); border:none;
     padding: 11px 22px; border-radius: 999px; font-weight:700; font-size:0.9rem;
     cursor:pointer;
   }
@@ -87,20 +89,33 @@
   .hero p.lead{ font-size: 1.12rem; max-width: 46ch; }
   .hero-actions{ display:flex; gap:16px; margin-top: 30px; flex-wrap:wrap; }
   .btn-primary{
-    background: var(--berry-deep); color:var(--white); border:none;
+    background: linear-gradient(135deg, var(--accent), var(--berry-deep));
+    color:var(--white); border:none;
     padding: 15px 30px; border-radius: 999px; font-weight:700; font-size:1rem; cursor:pointer;
-    box-shadow: 0 10px 24px rgba(124,39,64,0.25);
+    box-shadow: 0 10px 24px rgba(232,67,122,0.3);
   }
   .btn-secondary{
     background: transparent; color: var(--berry-deep); border: 2px solid var(--berry-deep);
     padding: 13px 28px; border-radius: 999px; font-weight:700; font-size:1rem; cursor:pointer;
   }
   .hero-visual{
-    position:relative; aspect-ratio: 4/5; border-radius: var(--radius-soft);
-    background: linear-gradient(160deg, var(--blush) 0%, var(--berry) 130%);
-    display:flex; align-items:center; justify-content:center;
-    overflow:hidden;
+    position:relative; border-radius: var(--radius-soft);
+    background: linear-gradient(160deg, var(--accent) 0%, var(--berry-deep) 100%);
+    display:flex; flex-direction:column; gap:14px;
+    overflow:hidden; padding: 22px;
   }
+  .hero-context-inline{
+    margin-top: 26px; background: var(--white); border-radius: 20px; padding: 20px 22px;
+    box-shadow: 0 8px 24px rgba(43,27,30,0.08); max-width: 460px;
+  }
+  .ctx-label-dark{ display:block; font-size:0.76rem; font-weight:700; color: var(--ink-soft); margin: 8px 0 4px; }
+  .ctx-label-dark:first-child{ margin-top:0; }
+  .hero-context-inline select{
+    width:100%; padding:10px 12px; border-radius:10px; border:1px solid rgba(43,27,30,0.15);
+    background: var(--ivory); color: var(--ink); font-family:'Manrope',sans-serif; font-size:0.9rem;
+  }
+  .ctx-btn{ width:100%; margin-top:14px; padding: 12px; }
+  .ctx-result-dark{ margin-top:10px; font-size:0.85rem; color: var(--berry-deep); font-weight:600; max-width:none; }
   .hero-visual .ring{
     position:absolute; border-radius:50%; border: 1px solid rgba(255,255,255,0.5);
   }
@@ -225,7 +240,7 @@
     background: var(--white); border-radius:22px; padding: 32px 26px; text-align:center;
     border-top: 4px solid transparent;
   }
-  .gamme-essentiels{ border-top-color: var(--berry); }
+  .gamme-essentiels{ border-top-color: var(--accent); }
   .gamme-signature{ border-top-color: var(--berry-deep); }
   .gamme-cocon{ border-top-color: var(--gold); }
   .gamme-card svg{ margin: 0 auto 16px; display:block; }
@@ -324,7 +339,7 @@
       <li><a href="#gammes">Les gammes</a></li>
       <li><a href="#parures">Parures de main</a></li>
       <li><a href="#boutique">La boutique</a></li>
-      <li><a href="#simulateur">Essayer un look</a></li>
+      <li><a href="#hero-cam">Essayer un look</a></li>
       <li><a href="#cocon">L'espace cocon</a></li>
     </ul>
     <button class="nav-cta" onclick="document.getElementById('boutique').scrollIntoView()">Voir la boutique</button>
@@ -346,13 +361,46 @@
       <p class="lead">Loulou Paris crée des produits pensés pour durer, choisis avec un œil affûté par des années de passion — et un espace où se maquiller redevient un moment rien qu'à toi.</p>
       <div class="hero-actions">
         <button class="btn-primary" onclick="document.getElementById('boutique').scrollIntoView()">Découvrir la collection</button>
-        <button class="btn-secondary" onclick="document.getElementById('simulateur').scrollIntoView()">Essayer un look virtuel</button>
+      </div>
+      <div class="hero-context-inline">
+        <label class="ctx-label-dark">Occasion</label>
+        <select id="ctxOccasion">
+          <option value="quotidien">Quotidien</option>
+          <option value="travail">Travail</option>
+          <option value="ceremonie">Cérémonie festive</option>
+          <option value="deuil">Deuil</option>
+          <option value="sortie">Sortie du week-end</option>
+        </select>
+        <label class="ctx-label-dark">Ambiance</label>
+        <select id="ctxAmbiance">
+          <option value="naturel">Naturel</option>
+          <option value="sobre">Sobre</option>
+          <option value="affirme">Affirmé</option>
+          <option value="festif">Festif</option>
+        </select>
+        <button class="btn-primary ctx-btn" id="proposeLook">Proposer mon look</button>
+        <p class="ctx-result-dark" id="ctxResult"></p>
+        <p class="ctx-result-dark" id="skinResult"></p>
       </div>
     </div>
-    <div class="hero-visual">
-      <div class="ring r1"></div>
-      <div class="ring r2"></div>
-      <div class="mirror-text">« Le bon rouge à lèvres a déjà sauvé plus d'une journée. »</div>
+    <div class="hero-visual" id="hero-cam">
+      <div class="sim-mode-toggle">
+        <button class="mode-btn" id="modePhotoBtn">Charger une photo</button>
+        <button class="mode-btn active" id="modeCameraBtn">Caméra en direct</button>
+      </div>
+      <div class="sim-drop" id="dropZone" style="display:none;">
+        <p style="color:rgba(255,255,255,0.85); margin:0;">Clique pour charger une photo<br><span style="font-size:0.85rem; color:rgba(255,255,255,0.6);">ou glisse-la ici</span></p>
+        <input type="file" accept="image/*" id="fileInput" style="display:none;">
+      </div>
+      <div class="sim-drop" id="cameraStart">
+        <p style="color:rgba(255,255,255,0.9); margin:0; font-weight:700;">Active ta caméra<br><span style="font-size:0.85rem; color:rgba(255,255,255,0.65); font-weight:400;">pour te voir maquillée en direct — l'accès est demandé par ton navigateur, jamais par nous</span></p>
+      </div>
+      <div class="sim-canvas-wrap">
+        <video id="simVideo" style="display:none;" playsinline muted></video>
+        <canvas id="simCanvas" width="500" height="500"></canvas>
+      </div>
+      <div class="sim-swatches" id="swatches"></div>
+      <p class="sim-note" id="simNote">Détection de visage en direct (MediaPipe), traitée entièrement dans ton navigateur.</p>
     </div>
   </div>
 </section>
@@ -429,62 +477,6 @@
       <p>Des essentiels signés Loulou Paris, complétés par une sélection de pièces d'autres maisons — toujours sous leur propre nom, jamais renommées.</p>
     </div>
     <div class="products-grid" id="productGrid"></div>
-  </div>
-</section>
-
-<section id="simulateur">
-  <div class="wrap">
-    <div class="simulator">
-      <div class="section-head">
-        <span class="eyebrow">Essayer avant d'acheter</span>
-        <h2>Vois le rendu sur ton propre visage.</h2>
-        <p>Caméra en direct ou photo : la détection de visage tourne entièrement dans ton navigateur, rien n'est envoyé sur un serveur.</p>
-      </div>
-      <div class="sim-grid">
-        <div class="sim-panel">
-          <div class="sim-context">
-            <label class="ctx-label">Occasion</label>
-            <select id="ctxOccasion">
-              <option value="quotidien">Quotidien</option>
-              <option value="travail">Travail</option>
-              <option value="ceremonie">Cérémonie festive</option>
-              <option value="deuil">Deuil</option>
-              <option value="sortie">Sortie du week-end</option>
-            </select>
-            <label class="ctx-label">Ambiance recherchée</label>
-            <select id="ctxAmbiance">
-              <option value="naturel">Naturel</option>
-              <option value="sobre">Sobre</option>
-              <option value="affirme">Affirmé</option>
-              <option value="festif">Festif</option>
-            </select>
-            <button class="btn-secondary ctx-btn" id="proposeLook" style="color:#fff; border-color:#fff;">Proposer mon look</button>
-            <p class="ctx-result" id="ctxResult"></p>
-          </div>
-
-          <div class="sim-mode-toggle">
-            <button class="mode-btn active" id="modePhotoBtn">Charger une photo</button>
-            <button class="mode-btn" id="modeCameraBtn">Caméra en direct</button>
-          </div>
-
-          <div class="sim-drop" id="dropZone">
-            <p style="color:rgba(255,255,255,0.85); margin:0;">Clique pour charger une photo<br><span style="font-size:0.85rem; color:rgba(255,255,255,0.6);">ou glisse-la ici</span></p>
-            <input type="file" accept="image/*" id="fileInput" style="display:none;">
-          </div>
-          <div class="sim-drop" id="cameraStart" style="display:none;">
-            <p style="color:rgba(255,255,255,0.85); margin:0;">Activer la caméra<br><span style="font-size:0.85rem; color:rgba(255,255,255,0.6);">l'accès est demandé par ton navigateur, jamais par nous</span></p>
-          </div>
-
-          <div class="sim-swatches" id="swatches"></div>
-          <p class="ctx-result" id="skinResult"></p>
-          <p class="sim-note" id="simNote">Détection de visage en direct (MediaPipe) : la teinte se place sur les lèvres et les joues en temps réel, à partir des repères du visage — pas d'un simple filtre couleur global.</p>
-        </div>
-        <div class="sim-canvas-wrap">
-          <video id="simVideo" style="display:none;" playsinline muted></video>
-          <canvas id="simCanvas" width="500" height="500"></canvas>
-        </div>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -699,7 +691,7 @@
     ctx.fillStyle = "rgba(255,255,255,0.6)";
     ctx.font = "18px Manrope, sans-serif";
     ctx.textAlign = "center";
-    ctx.fillText("Charge une photo pour voir l'aperçu", canvas.width/2, canvas.height/2);
+    ctx.fillText("Active ta caméra ci-dessus", canvas.width/2, canvas.height/2);
   }
   placeholderCanvas();
 
@@ -754,7 +746,7 @@
   const CHEEK_R = 50, CHEEK_L = 280, FOREHEAD = 10;
 
   let faceLandmarker = null;
-  let mode = "photo"; // "photo" | "camera"
+  let mode = "camera"; // "photo" | "camera" — caméra par défaut, visible dès l'ouverture du site
   let stream = null;
   let rafId = null;
 
