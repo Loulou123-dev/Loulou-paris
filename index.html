@@ -231,6 +231,11 @@
     font-weight:700; cursor:pointer; font-family:'Manrope',sans-serif;
   }
   .mode-btn.active{ background: var(--white); color: var(--berry-deep); }
+  .mirror-btn{
+    align-self:center; background: rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.4);
+    color: rgba(255,255,255,0.9); border-radius:999px; padding:8px 16px; font-size:0.8rem;
+    font-weight:700; cursor:pointer; font-family:'Manrope',sans-serif; margin-top:10px;
+  }
 
   /* COCON */
   .cocon-grid{ display:grid; grid-template-columns: repeat(3,1fr); gap: 28px; }
@@ -399,6 +404,7 @@
         <video id="simVideo" style="display:none;" playsinline muted></video>
         <canvas id="simCanvas" width="500" height="500"></canvas>
       </div>
+      <button class="mirror-btn" id="mirrorToggle" type="button">↔ Inverser l'image</button>
       <div class="sim-swatches" id="swatches"></div>
       <p class="sim-note" id="simNote">Détection de visage en direct (MediaPipe), traitée entièrement dans ton navigateur.</p>
     </div>
@@ -744,6 +750,23 @@
   // Contour extérieur des lèvres (indices canoniques MediaPipe FaceMesh).
   const LIPS_OUTER = [61,185,40,39,37,0,267,269,270,409,291,375,321,405,314,17,84,181,91,146];
   const CHEEK_R = 50, CHEEK_L = 280, FOREHEAD = 10;
+  const SMOOTH_INDICES = LIPS_OUTER.concat([CHEEK_R, CHEEK_L, FOREHEAD]);
+  const SMOOTH_ALPHA = 0.4; // plus bas = plus lisse mais plus "en retard" sur le mouvement réel
+  let smoothMap = {};
+  function smoothLandmarks(landmarks){
+    const out = landmarks.slice();
+    SMOOTH_INDICES.forEach(idx => {
+      const raw = landmarks[idx];
+      const prev = smoothMap[idx];
+      const sm = prev
+        ? { x: SMOOTH_ALPHA*raw.x + (1-SMOOTH_ALPHA)*prev.x, y: SMOOTH_ALPHA*raw.y + (1-SMOOTH_ALPHA)*prev.y }
+        : { x: raw.x, y: raw.y };
+      smoothMap[idx] = sm;
+      out[idx] = sm;
+    });
+    return out;
+  }
+  let mirrorEnabled = true; // ajustable via le bouton "Inverser l'image"
 
   let faceLandmarker = null;
   let mode = "camera"; // "photo" | "camera" — caméra par défaut, visible dès l'ouverture du site
@@ -847,15 +870,15 @@
     const loop = async () => {
       if (mode !== "camera") return;
       const result = lm.detectForVideo(video, performance.now());
-      // Effet miroir : on inverse tout le dessin (vidéo + maquillage) horizontalement,
-      // pour que bouger la tête à gauche déplace bien l'image à gauche, comme devant un vrai miroir.
+      // Effet miroir optionnel (réglable via le bouton) : inverse le dessin horizontalement
+      // pour que ça se comporte comme un vrai miroir sur les appareils où la caméra ne le fait pas déjà.
       ctx.save();
-      ctx.translate(canvas.width, 0);
-      ctx.scale(-1, 1);
+      if (mirrorEnabled) { ctx.translate(canvas.width, 0); ctx.scale(-1, 1); }
       ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
       if (result.faceLandmarks && result.faceLandmarks.length){
-        sampleSkinTone(result.faceLandmarks[0], true);
-        drawMakeup(result.faceLandmarks[0]);
+        const sm = smoothLandmarks(result.faceLandmarks[0]);
+        sampleSkinTone(sm, mirrorEnabled);
+        drawMakeup(sm);
       }
       ctx.restore();
       rafId = requestAnimationFrame(loop);
@@ -878,6 +901,7 @@
   const modeCameraBtn = document.getElementById('modeCameraBtn');
   const dropZoneEl = document.getElementById('dropZone');
   const cameraStartEl = document.getElementById('cameraStart');
+  const mirrorToggleEl = document.getElementById('mirrorToggle');
 
   modePhotoBtn.addEventListener('click', () => {
     mode = "photo";
@@ -885,6 +909,7 @@
     window.faceModeActive = false;
     modePhotoBtn.classList.add('active'); modeCameraBtn.classList.remove('active');
     dropZoneEl.style.display = 'block'; cameraStartEl.style.display = 'none';
+    mirrorToggleEl.style.display = 'none';
     video.style.display = 'none';
   });
 
@@ -892,11 +917,16 @@
     mode = "camera";
     modeCameraBtn.classList.add('active'); modePhotoBtn.classList.remove('active');
     dropZoneEl.style.display = 'none'; cameraStartEl.style.display = 'block';
+    mirrorToggleEl.style.display = 'block';
   });
 
   cameraStartEl.addEventListener('click', () => {
     cameraStartEl.style.display = 'none';
     startCamera();
+  });
+
+  mirrorToggleEl.addEventListener('click', () => {
+    mirrorEnabled = !mirrorEnabled;
   });
 </script>
 
