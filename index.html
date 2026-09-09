@@ -205,8 +205,8 @@
     animation: catBounce 2.4s ease-in-out infinite;
   }
   .welcome-cat{
-    position:absolute; inset:0; width:120px; height:120px; border-radius:50%; object-fit:cover;
-    border:4px solid var(--gold); display:block;
+    position:absolute; inset:0; width:120px; height:120px; border-radius:50%; object-fit:contain;
+    background: var(--white); border:4px solid var(--gold); display:block; padding:6px; box-sizing:border-box;
   }
   .cat-a{ animation: catFadeA 1.8s steps(1) infinite; }
   .cat-b{ animation: catFadeB 1.8s steps(1) infinite; }
@@ -383,8 +383,8 @@
 <div id="welcomeGate" class="welcome-gate">
   <div class="welcome-card">
     <div class="welcome-cat-wrap">
-      <img src="chaussettes.jpg" alt="Chaussettes, le chat" class="welcome-cat cat-a">
-      <img src="chaussettes-2.jpg" alt="Chaussettes, le chat" class="welcome-cat cat-b">
+      <img src="chaussettes-dessin-1.png" alt="Chaussettes, le chat (dessin)" class="welcome-cat cat-a">
+      <img src="chaussettes-dessin-2.png" alt="Chaussettes, le chat (dessin)" class="welcome-cat cat-b">
     </div>
     <h2>Avant d'entrer chez Loulou Paris...</h2>
     <p>Chaussettes a une pensée du jour pour toi.</p>
