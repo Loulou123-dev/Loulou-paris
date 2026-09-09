@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loulou Paris — Le maquillage comme bulle d'air</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Manrope:wght@400;500;600;700&family=Baloo+2:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ivory: #FBF2EF;
+    --blush: #F3D9DD;
+    --berry: #A73B58;
+    --berry-deep: #7C2740;
+    --gold: #C9A66B;
+    --accent: #E8437A;
+    --accent-2: #FFB648;
+    --ink: #2B1B1E;
+    --ink-soft: #5C4348;
+    --white: #FFFFFF;
+    --radius-soft: 28px;
+  }
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0;
+    background: var(--ivory);
+    color: var(--ink);
+    font-family: 'Manrope', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  h1, h2, h3, .display{
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    line-height: 1.08;
+    margin: 0;
+    color: var(--berry-deep);
+  }
+  p{ margin: 0 0 1rem 0; max-width: 62ch; color: var(--ink-soft); }
+  a{ color: inherit; }
+  img{ max-width:100%; display:block; }
+  .wrap{ max-width: 1180px; margin: 0 auto; padding: 0 28px; }
+
+  /* NAV */
+  header{
+    position: sticky; top:0; z-index: 50;
+    background: rgba(251,242,239,0.92);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid rgba(167,59,88,0.12);
+  }
+  nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 18px 28px; max-width: 1180px; margin:0 auto;
+  }
+  .logo{
+    font-family:'Fraunces', serif; font-style: italic; font-weight: 500;
+    font-size: 1.5rem; color: var(--berry-deep); letter-spacing: 0.5px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .logo .mono{ flex-shrink:0; }
+  .nav-links{ display:flex; gap: 32px; list-style:none; margin:0; padding:0; }
+  .nav-links a{
+    text-decoration:none; color: var(--ink); font-weight:600; font-size: 0.92rem;
+    padding: 8px 2px; border-bottom: 2px solid transparent; transition: border-color .2s;
+  }
+  .nav-links a:hover{ border-color: var(--berry); }
+  .nav-cta{
+    background: linear-gradient(135deg, var(--accent), var(--berry-deep)); color: var(--white); border:none;
+    padding: 11px 22px; border-radius: 999px; font-weight:700; font-size:0.9rem;
+    cursor:pointer;
+  }
+  .burger{ display:none; background:none; border:none; cursor:pointer; padding:6px; }
+
+  /* HERO */
+  .hero{
+    position: relative; overflow:hidden;
+    padding: 88px 0 96px;
+  }
+  .hero-grid{
+    display:grid; grid-template-columns: 1.1fr 0.9fr; gap: 56px; align-items:center;
+  }
+  .eyebrow{
+    display:inline-block; font-weight:700; color: var(--berry);
+    font-size: 0.95rem; margin-bottom: 18px;
+  }
+  .hero h1{ font-size: clamp(2.4rem, 4.2vw, 3.6rem); margin-bottom: 22px; }
+  .hero h1 em{ font-style: italic; color: var(--berry); }
+  .hero p.lead{ font-size: 1.12rem; max-width: 46ch; }
+  .hero-actions{ display:flex; gap:16px; margin-top: 30px; flex-wrap:wrap; }
+  .btn-primary{
+    background: linear-gradient(135deg, var(--accent), var(--berry-deep));
+    color:var(--white); border:none;
+    padding: 15px 30px; border-radius: 999px; font-weight:700; font-size:1rem; cursor:pointer;
+    box-shadow: 0 10px 24px rgba(232,67,122,0.3);
+  }
+  .btn-secondary{
+    background: transparent; color: var(--berry-deep); border: 2px solid var(--berry-deep);
+    padding: 13px 28px; border-radius: 999px; font-weight:700; font-size:1rem; cursor:pointer;
+  }
+  .hero-visual{
+    position:relative; border-radius: var(--radius-soft);
+    background: linear-gradient(160deg, var(--accent) 0%, var(--berry-deep) 100%);
+    display:flex; flex-direction:column; gap:14px;
+    overflow:hidden; padding: 22px;
+  }
+  .hero-context-inline{
+    margin-top: 26px; background: var(--white); border-radius: 20px; padding: 20px 22px;
+    box-shadow: 0 8px 24px rgba(43,27,30,0.08); max-width: 460px;
+  }
+  .ctx-label-dark{ display:block; font-size:0.76rem; font-weight:700; color: var(--ink-soft); margin: 8px 0 4px; }
+  .ctx-label-dark:first-child{ margin-top:0; }
+  .hero-context-inline select{
+    width:100%; padding:10px 12px; border-radius:10px; border:1px solid rgba(43,27,30,0.15);
+    background: var(--ivory); color: var(--ink); font-family:'Manrope',sans-serif; font-size:0.9rem;
+  }
+  .ctx-btn{ width:100%; margin-top:14px; padding: 12px; }
+  .ctx-result-dark{ margin-top:10px; font-size:0.85rem; color: var(--berry-deep); font-weight:600; max-width:none; }
+  .hero-visual .ring{
+    position:absolute; border-radius:50%; border: 1px solid rgba(255,255,255,0.5);
+  }
+  .hero-visual .ring.r1{ width:70%; height:70%; }
+  .hero-visual .ring.r2{ width:48%; height:48%; }
+  .hero-visual .mirror-text{
+    font-family:'Fraunces', serif; font-style:italic; color: var(--white);
+    font-size: 1.4rem; text-align:center; padding: 0 40px; z-index:2;
+  }
+
+  /* SECTION shared */
+  section{ padding: 84px 0; }
+  .section-head{ max-width: 640px; margin-bottom: 48px; }
+  .section-head .eyebrow{ margin-bottom: 10px; }
+  .section-head h2{ font-size: clamp(1.9rem, 3vw, 2.6rem); }
+
+  /* STORY */
+  .story{
+    background: var(--white);
+    border-radius: var(--radius-soft);
+    margin: 0 28px; max-width: 1124px; margin-left:auto; margin-right:auto;
+    padding: 64px 56px;
+  }
+  .story-grid{ display:grid; grid-template-columns: 0.85fr 1.15fr; gap: 56px; align-items:center; }
+  .story-portrait{
+    aspect-ratio: 3/4; border-radius: 20px;
+    background: linear-gradient(200deg, var(--blush), var(--gold));
+    overflow: hidden;
+  }
+  .story-portrait img{
+    width: 100%; height: 100%; object-fit: cover; display: block;
+  }
+  .story blockquote{
+    font-family:'Fraunces', serif; font-style:italic; font-size: 1.5rem;
+    color: var(--berry-deep); margin: 0 0 20px 0; line-height:1.35;
+  }
+
+  /* PRODUCTS */
+  .products-grid{
+    display:grid; grid-template-columns: repeat(3, 1fr); gap: 28px;
+  }
+  .card{
+    background: var(--white); border-radius: 22px; overflow:hidden;
+    display:flex; flex-direction:column;
+  }
+  .card-media{
+    aspect-ratio: 1/1;
+    background: linear-gradient(135deg, var(--blush), var(--ivory));
+    position:relative;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .card-body{ padding: 22px 22px 26px; display:flex; flex-direction:column; gap:8px; flex:1; }
+  .card-tag{ font-size:0.78rem; font-weight:700; color: var(--berry); text-transform: none; }
+  .card h3{ font-size: 1.15rem; color: var(--ink); font-family:'Manrope',sans-serif; font-weight:700; }
+  .card .price{ font-family:'Fraunces', serif; font-size:1.3rem; color: var(--berry-deep); margin-top:auto; }
+  .card-actions{ display:flex; justify-content:space-between; align-items:center; margin-top: 10px; }
+  .add-btn{
+    background: var(--ink); color:var(--white); border:none; border-radius: 999px;
+    padding: 9px 18px; font-weight:700; font-size:0.85rem; cursor:pointer;
+  }
+  .add-btn:hover{ background: var(--berry-deep); }
+  .add-btn:disabled{ background: #d8cdcf; color: var(--ink-soft); cursor: not-allowed; }
+  .soon-badge{
+    position:absolute; top:14px; left:14px; background: var(--ink);
+    color: var(--white); font-size:0.72rem; font-weight:700;
+    padding: 6px 12px; border-radius: 999px;
+  }
+  .soon-badge.sold-out{ background: var(--berry-deep); }
+  .prelaunch-banner{
+    background: var(--berry-deep); color: var(--white); text-align:center;
+    font-size: 0.88rem; font-weight:600; padding: 10px 20px;
+  }
+
+  /* ÉCRAN D'ACCUEIL — prénom + Chaussettes */
+  .welcome-gate{
+    position:fixed; inset:0; z-index:999;
+    background: linear-gradient(160deg, var(--accent), var(--berry-deep));
+    display:flex; align-items:center; justify-content:center; padding:24px;
+  }
+  .welcome-gate.hidden{ display:none; }
+  .welcome-card{
+    background: var(--white); border-radius: 28px; padding: 40px 32px;
+    max-width: 380px; width:100%; text-align:center; box-shadow: 0 24px 60px rgba(0,0,0,0.28);
+  }
+  .welcome-cat-wrap{
+    position:relative; width:120px; height:120px; margin:0 auto 18px;
+    animation: catBounce 2.4s ease-in-out infinite;
+  }
+  .welcome-cat{
+    position:absolute; inset:0; width:120px; height:120px; border-radius:50%; object-fit:contain;
+    background: var(--white); border:4px solid var(--gold); display:block; padding:6px; box-sizing:border-box;
+  }
+  .cat-a{ animation: catFadeA 1.8s steps(1) infinite; }
+  .cat-b{ animation: catFadeB 1.8s steps(1) infinite; }
+  @keyframes catFadeA{ 0%,49%{ opacity:1; } 50%,100%{ opacity:0; } }
+  @keyframes catFadeB{ 0%,49%{ opacity:0; } 50%,100%{ opacity:1; } }
+  @keyframes catBounce{
+    0%,100%{ transform: translateY(0) rotate(0deg); }
+    50%{ transform: translateY(-8px) rotate(-3deg); }
+  }
+  .welcome-card h2{ font-family:'Fraunces', serif; font-style:italic; color:var(--berry-deep); font-size:1.35rem; margin-bottom:8px; }
+  .welcome-card p{ color:var(--ink-soft); font-size:0.9rem; margin:0 0 20px; max-width:none; }
+  #welcomeName{
+    width:100%; padding:13px 16px; border-radius:999px; border:1px solid rgba(43,27,30,0.2);
+    font-family:'Manrope',sans-serif; font-size:1rem; margin-bottom:14px; text-align:center;
+    box-sizing:border-box;
+  }
+  .welcome-card .btn-primary{ width:100%; }
+  @media (prefers-reduced-motion: reduce){
+    .welcome-cat-wrap, .cat-a, .cat-b{ animation:none; }
+    .cat-a{ opacity:1; } .cat-b{ opacity:0; }
+  }
+
+  /* SIMULATOR */
+  .simulator{
+    background: linear-gradient(180deg, var(--berry-deep), var(--berry));
+    border-radius: var(--radius-soft);
+    margin: 0 28px; max-width: 1124px; margin-left:auto; margin-right:auto;
+    padding: 64px 56px; color: var(--white);
+  }
+  .simulator .section-head h2, .simulator .eyebrow{ color: var(--white); }
+  .simulator p{ color: rgba(255,255,255,0.82); }
+  .sim-grid{ display:grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items:center; }
+  .sim-panel{
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 20px; padding: 28px; text-align:center;
+  }
+  .sim-drop{
+    border: 2px dashed rgba(255,255,255,0.5); border-radius: 16px;
+    padding: 42px 20px; cursor:pointer; margin-bottom: 20px;
+  }
+  .sim-drop:hover{ background: rgba(255,255,255,0.06); }
+  .sim-canvas-wrap{ position:relative; border-radius:16px; overflow:hidden; background:#1a0d12; }
+  #simCanvas{ width:100%; display:block; }
+  .sim-swatches{ display:flex; gap:10px; justify-content:center; margin-top:16px; flex-wrap:wrap; }
+  .swatch{
+    width:34px; height:34px; border-radius:50%; cursor:pointer; border:2px solid rgba(255,255,255,0.6);
+  }
+  .swatch.selected{ outline: 2px solid var(--gold); outline-offset:2px; }
+  .sim-note{ font-size:0.85rem; color: rgba(255,255,255,0.65); margin-top:18px; }
+  .sim-context{ margin-bottom:20px; text-align:left; }
+  .ctx-label{ display:block; font-size:0.78rem; font-weight:700; color: rgba(255,255,255,0.8); margin: 10px 0 5px; }
+  .sim-context select{
+    width:100%; padding:10px 12px; border-radius:10px; border:1px solid rgba(255,255,255,0.4);
+    background: rgba(255,255,255,0.08); color: var(--white); font-family:'Manrope',sans-serif; font-size:0.9rem;
+  }
+  .sim-context select option{ color: var(--ink); }
+  .ctx-btn{ width:100%; margin-top:16px; }
+  .ctx-result{ margin-top:14px; font-size:0.88rem; color: rgba(255,255,255,0.9); max-width:none; }
+  .sim-mode-toggle{ display:flex; gap:8px; margin-bottom:14px; }
+  .mode-btn{
+    flex:1; background: rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.35);
+    color: rgba(255,255,255,0.85); border-radius:999px; padding:9px 10px; font-size:0.82rem;
+    font-weight:700; cursor:pointer; font-family:'Manrope',sans-serif;
+  }
+  .mode-btn.active{ background: var(--white); color: var(--berry-deep); }
+  .mirror-btn{
+    align-self:center; background: rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.4);
+    color: rgba(255,255,255,0.9); border-radius:999px; padding:8px 16px; font-size:0.8rem;
+    font-weight:700; cursor:pointer; font-family:'Manrope',sans-serif; margin-top:10px;
+  }
+
+  /* COCON */
+  .cocon-grid{ display:grid; grid-template-columns: repeat(3,1fr); gap: 28px; }
+
+  .gammes-grid{ display:grid; grid-template-columns: repeat(3,1fr); gap: 28px; }
+  .gamme-card{
+    background: var(--white); border-radius:22px; padding: 32px 26px; text-align:center;
+    border-top: 4px solid transparent;
+  }
+  .gamme-essentiels{ border-top-color: var(--accent); }
+  .gamme-signature{ border-top-color: var(--berry-deep); }
+  .gamme-cocon{ border-top-color: var(--gold); }
+  .gamme-card svg{ margin: 0 auto 16px; display:block; }
+  .gamme-card h3{ font-family:'Fraunces', serif; font-style:italic; font-size:1.3rem; color:var(--berry-deep); margin-bottom:8px; }
+  .gamme-card p{ font-size:0.92rem; max-width: none; }
+
+  .hand-grid{ display:grid; grid-template-columns: repeat(3,1fr); gap: 28px; }
+  .hand-card{ background: var(--white); border-radius:22px; overflow:hidden; }
+  .hand-media{
+    aspect-ratio: 4/3; position:relative;
+    background: linear-gradient(135deg, var(--blush), var(--ivory));
+    display:flex; align-items:center; justify-content:center;
+  }
+  .hand-body{ padding: 22px 24px 26px; }
+  .hand-body h3{ font-family:'Fraunces', serif; font-style:italic; font-size:1.25rem; color:var(--berry-deep); margin-bottom:4px; }
+  .hand-desc{ font-size:0.88rem; margin-bottom:16px; }
+  .hand-lines{ display:flex; flex-direction:column; gap:8px; margin-bottom:18px; font-size:0.88rem; }
+  .hand-lines div{ display:flex; justify-content:space-between; color: var(--ink); }
+  .hand-lines span:last-child{ font-weight:700; color: var(--berry-deep); }
+  .waitlist-btn{
+    width:100%; background: var(--ink); color:var(--white); border:none;
+    border-radius: 999px; padding: 12px; font-weight:700; font-size:0.9rem; cursor:pointer;
+  }
+  .waitlist-btn:hover{ background: var(--berry-deep); }
+  .cocon-card{
+    background: var(--white); border-radius:22px; padding: 30px 26px;
+  }
+  .cocon-card .icon{
+    width:48px; height:48px; border-radius:14px; background: var(--blush);
+    margin-bottom:18px;
+  }
+  .cocon-card h3{ font-size:1.1rem; margin-bottom:8px; }
+
+  /* NEWSLETTER */
+  .newsletter{
+    text-align:center; max-width: 620px; margin: 0 auto;
+  }
+  .newsletter form{ display:flex; gap:12px; margin-top: 26px; }
+  .newsletter input[type=email]{
+    flex:1; padding: 15px 20px; border-radius: 999px; border: 1px solid rgba(43,27,30,0.2);
+    font-family:'Manrope',sans-serif; font-size:1rem; background: var(--white);
+  }
+
+  footer{
+    border-top: 1px solid rgba(43,27,30,0.1); padding: 40px 28px; text-align:center;
+  }
+  footer p{ margin:0 auto; font-size:0.85rem; }
+
+  .toast{
+    position: fixed; bottom: 26px; left:50%; transform: translateX(-50%) translateY(20px);
+    background: var(--ink); color:var(--white); padding: 14px 26px; border-radius: 999px;
+    font-weight:600; font-size:0.9rem; opacity:0; pointer-events:none; transition: all .4s ease;
+    z-index: 100;
+  }
+  .toast.show{ opacity:1; transform: translateX(-50%) translateY(0); }
+  .toast.cat-mode{
+    bottom: 90px; max-width: 86vw; width: 340px; text-align:center;
+    background: linear-gradient(135deg, var(--accent), var(--berry-deep));
+    border: 3px solid var(--gold);
+    border-radius: 28px; padding: 22px 26px;
+    font-family: 'Baloo 2', cursive; font-weight:700; font-size: 1.35rem; line-height:1.35;
+    white-space: normal; overflow:hidden;
+    animation: catGlow 1.6s ease-in-out infinite;
+  }
+  .toast.cat-mode::after{
+    content:""; position:absolute; inset:0; pointer-events:none;
+    background: linear-gradient(115deg, transparent 20%, rgba(255,255,255,0.55) 50%, transparent 80%);
+    background-size: 250% 100%; background-position: -100% 0;
+    animation: catShine 2.6s ease-in-out infinite;
+  }
+  .toast.cat-mode .glitter-layer{ position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
+  .toast.cat-mode .quip-text{ position:relative; z-index:2; }
+  .toast.cat-mode .glitter-dot{
+    position:absolute; border-radius:50%; background: var(--white);
+    box-shadow: 0 0 6px 1px rgba(255,255,255,0.9);
+    animation: glitterTwinkle 1.6s ease-in-out infinite;
+  }
+  .toast.cat-mode .glitter-dot.gold{ background: var(--gold); box-shadow: 0 0 6px 1px rgba(201,166,107,0.9); }
+  @keyframes glitterTwinkle{
+    0%,100%{ opacity:0; transform: scale(0.4); }
+    50%{ opacity:1; transform: scale(1); }
+  }
+  .toast.cat-mode .sparkle{
+    display:inline-block; animation: catTwinkle 1.3s ease-in-out infinite;
+  }
+  .toast.cat-mode .sparkle.s2{ animation-delay: .3s; }
+  .toast.cat-mode .sparkle.s3{ animation-delay: .6s; }
+  @keyframes catGlow{
+    0%,100%{ box-shadow: 0 16px 40px rgba(232,67,122,0.4), 0 0 0 rgba(201,166,107,0); }
+    50%{ box-shadow: 0 16px 46px rgba(232,67,122,0.55), 0 0 26px rgba(201,166,107,0.75); }
+  }
+  @keyframes catShine{
+    0%{ background-position: -120% 0; }
+    60%,100%{ background-position: 120% 0; }
+  }
+  @keyframes catTwinkle{
+    0%,100%{ opacity:0.35; transform: scale(0.85) rotate(0deg); }
+    50%{ opacity:1; transform: scale(1.15) rotate(12deg); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .toast.cat-mode, .toast.cat-mode::after, .toast.cat-mode .sparkle, .toast.cat-mode .glitter-dot{ animation:none; opacity:0; }
+  }
+
+  @media (max-width: 860px){
+    .nav-links{
+      display: none; position:absolute; top:100%; left:0; right:0;
+      background: var(--ivory); flex-direction:column; gap:0;
+      border-bottom: 1px solid rgba(167,59,88,0.12); padding: 8px 0;
+    }
+    .nav-links.open{ display:flex; }
+    .nav-links li{ width:100%; }
+    .nav-links a{ display:block; padding: 14px 28px; border-bottom:none; }
+    .burger{ display:block; }
+    nav{ position:relative; }
+    .hero-grid, .story-grid, .sim-grid{ grid-template-columns: 1fr; }
+    .products-grid, .cocon-grid, .gammes-grid, .hand-grid{ grid-template-columns: 1fr 1fr; }
+    .story, .simulator{ padding: 40px 26px; margin: 0 16px; }
+    .newsletter form{ flex-direction:column; }
+  }
+  @media (max-width: 560px){
+    .products-grid, .cocon-grid, .gammes-grid, .hand-grid{ grid-template-columns: 1fr; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ transition:none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div id="welcomeGate" class="welcome-gate">
+  <div class="welcome-card">
+    <div class="welcome-cat-wrap">
+      <img src="chaussettes-dessin-1.png" alt="Chaussettes, le chat (dessin)" class="welcome-cat cat-a">
+      <img src="chaussettes-dessin-2.png" alt="Chaussettes, le chat (dessin)" class="welcome-cat cat-b">
+    </div>
+    <h2>Avant d'entrer chez Loulou Paris...</h2>
+    <p>Chaussettes a une pensée du jour pour toi.</p>
+    <input type="text" id="welcomeName" placeholder="Ton prénom" maxlength="24" autocomplete="off">
+    <button class="btn-primary" id="welcomeEnter" type="button">Entrer</button>
+  </div>
+</div>
+
+<div class="prelaunch-banner">Site en préparation — vente non ouverte tant que les contrats fournisseurs ne sont pas signés</div>
+<header>
+  <nav>
+    <div class="logo">
+      <svg class="mono" width="34" height="34" viewBox="0 0 34 34" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="17" cy="17" r="16" fill="#7C2740" stroke="#C9A66B" stroke-width="1"></circle>
+        <text x="17" y="22" text-anchor="middle" font-family="Fraunces, serif" font-style="italic" font-weight="600" font-size="13" fill="#FBF2EF">LP</text>
+      </svg>
+      Loulou Paris
+    </div>
+    <ul class="nav-links">
+      <li><a href="#histoire">L'histoire</a></li>
+      <li><a href="#gammes">Les gammes</a></li>
+      <li><a href="#parures">Parures de main</a></li>
+      <li><a href="#boutique">La boutique</a></li>
+      <li><a href="#hero-cam">Essayer un look</a></li>
+      <li><a href="#cocon">L'espace cocon</a></li>
+    </ul>
+    <button class="nav-cta" onclick="document.getElementById('boutique').scrollIntoView()">Voir la boutique</button>
+    <button class="burger" id="burgerBtn" aria-label="Ouvrir le menu" aria-expanded="false">
+      <svg width="22" height="22" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+        <line x1="2" y1="6" x2="20" y2="6" stroke="#7C2740" stroke-width="2" stroke-linecap="round"></line>
+        <line x1="2" y1="11" x2="20" y2="11" stroke="#7C2740" stroke-width="2" stroke-linecap="round"></line>
+        <line x1="2" y1="16" x2="20" y2="16" stroke="#7C2740" stroke-width="2" stroke-linecap="round"></line>
+      </svg>
+    </button>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Maquillage &amp; douceur</span>
+      <h1>Le maquillage, c'est <em>ta</em> respiration.</h1>
+      <p class="lead">Loulou Paris crée des produits pensés pour durer, choisis avec un œil affûté par des années de passion — et un espace où se maquiller redevient un moment rien qu'à toi.</p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="document.getElementById('boutique').scrollIntoView()">Découvrir la collection</button>
+      </div>
+      <div class="hero-context-inline">
+        <label class="ctx-label-dark">Occasion</label>
+        <select id="ctxOccasion">
+          <option value="quotidien">Quotidien</option>
+          <option value="travail">Travail</option>
+          <option value="ceremonie">Cérémonie festive</option>
+          <option value="deuil">Deuil</option>
+          <option value="sortie">Sortie du week-end</option>
+        </select>
+        <label class="ctx-label-dark">Ambiance</label>
+        <select id="ctxAmbiance">
+          <option value="naturel">Naturel</option>
+          <option value="sobre">Sobre</option>
+          <option value="affirme">Affirmé</option>
+          <option value="festif">Festif</option>
+        </select>
+        <button class="btn-primary ctx-btn" id="proposeLook">Proposer mon look</button>
+        <p class="ctx-result-dark" id="ctxResult"></p>
+        <p class="ctx-result-dark" id="skinResult"></p>
+      </div>
+    </div>
+    <div class="hero-visual" id="hero-cam">
+      <div class="sim-mode-toggle">
+        <button class="mode-btn" id="modePhotoBtn">Charger une photo</button>
+        <button class="mode-btn active" id="modeCameraBtn">Caméra en direct</button>
+      </div>
+      <div class="sim-drop" id="dropZone" style="display:none;">
+        <p style="color:rgba(255,255,255,0.85); margin:0;">Clique pour charger une photo<br><span style="font-size:0.85rem; color:rgba(255,255,255,0.6);">ou glisse-la ici</span></p>
+        <input type="file" accept="image/*" id="fileInput" style="display:none;">
+      </div>
+      <div class="sim-drop" id="cameraStart">
+        <p style="color:rgba(255,255,255,0.9); margin:0; font-weight:700;">Active ta caméra<br><span style="font-size:0.85rem; color:rgba(255,255,255,0.65); font-weight:400;">pour te voir maquillée en direct — l'accès est demandé par ton navigateur, jamais par nous</span></p>
+      </div>
+      <div class="sim-canvas-wrap">
+        <video id="simVideo" style="display:none;" playsinline muted></video>
+        <canvas id="simCanvas" width="500" height="500"></canvas>
+      </div>
+      <button class="mirror-btn" id="mirrorToggle" type="button">↔ Inverser l'image</button>
+      <div class="sim-swatches" id="swatches"></div>
+      <p class="sim-note" id="simNote">Détection de visage en direct (MediaPipe), traitée entièrement dans ton navigateur.</p>
+    </div>
+  </div>
+</section>
+
+<section id="histoire">
+  <div class="wrap">
+    <div class="story">
+      <div class="story-grid">
+        <div class="story-portrait"><img src="loulou-portrait.png" alt="Portrait de Loulou"></div>
+        <div>
+          <span class="eyebrow">Notre histoire</span>
+          <blockquote>« On me demandait déjà conseil à neuf ans. J'ai eu envie que ce regard-là serve à toutes celles qui en ont besoin. »</blockquote>
+          <p>Loulou a grandi avec un œil hors du commun pour les couleurs, les carnations et les matières. Ce qui commençait par des conseils donnés à la maison est devenu une marque : des produits choisis avec la même exigence, pour que chacune trouve sa teinte, son geste, son moment à elle.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="gammes">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Nos gammes</span>
+      <h2>Trois lignes, un même geste.</h2>
+      <p>Chaque produit trouve sa place selon le moment de la journée et l'usage qu'on en fait.</p>
+    </div>
+    <div class="gammes-grid">
+      <div class="gamme-card gamme-essentiels">
+        <svg width="56" height="56" viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="20" y="10" width="16" height="36" rx="6" fill="#FBF2EF" stroke="#A73B58" stroke-width="1.5"></rect>
+          <rect x="24" y="6" width="8" height="8" rx="2" fill="#C9A66B"></rect>
+        </svg>
+        <h3>Essentiels</h3>
+        <p>Le quotidien : teint, cils, lèvres. Ivoire &amp; liseré berry.</p>
+      </div>
+      <div class="gamme-card gamme-signature">
+        <svg width="56" height="56" viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="10" y="16" width="36" height="26" rx="4" fill="#7C2740" stroke="#C9A66B" stroke-width="1.5"></rect>
+          <circle cx="20" cy="29" r="4" fill="#F3D9DD"></circle>
+          <circle cx="30" cy="29" r="4" fill="#C9A66B"></circle>
+          <circle cx="40" cy="29" r="4" fill="#A73B58"></circle>
+        </svg>
+        <h3>Signature</h3>
+        <p>Les pièces fortes : rouges, palettes. Berry nuit &amp; or.</p>
+      </div>
+      <div class="gamme-card gamme-cocon">
+        <svg width="56" height="56" viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <ellipse cx="28" cy="34" rx="16" ry="10" fill="#F3D9DD" stroke="#A73B58" stroke-width="1.5"></ellipse>
+          <rect x="20" y="18" width="16" height="12" rx="5" fill="#C9A66B"></rect>
+        </svg>
+        <h3>Cocon</h3>
+        <p>Soin &amp; détente : baumes, sérums. Rose poudré &amp; or.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="parures">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Habillez vos mains</span>
+      <h2>Les parures de main Loulou.</h2>
+      <p>Une collection capsule : ongles semi-sur-mesure réutilisables et carré de main assorti, pensés pour aller avec une tenue précise. Le premier tirage de chaque modèle (30 pièces) est épuisé — inscription en liste d'attente pour le prochain tirage.</p>
+    </div>
+    <div class="hand-grid" id="handGrid"></div>
+  </div>
+</section>
+
+<section id="boutique">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">La boutique</span>
+      <h2>Une sélection resserrée, jamais une surenchère.</h2>
+      <p>Des essentiels signés Loulou Paris, complétés par une sélection de pièces d'autres maisons — toujours sous leur propre nom, jamais renommées.</p>
+    </div>
+    <div class="products-grid" id="productGrid"></div>
+  </div>
+</section>
+
+<section id="cocon">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">L'espace cocon</span>
+      <h2>Un moment de pause, à ton rythme.</h2>
+      <p>Pas besoin d'être en direct avec une inconnue pour souffler : des rituels courts, des lives enregistrés, une communauté modérée — toujours bienveillante, jamais intrusive.</p>
+    </div>
+    <div class="cocon-grid">
+      <div class="cocon-card">
+        <div class="icon"></div>
+        <h3>Rituels de 5 minutes</h3>
+        <p>Des routines make-up courtes à suivre quand tu as besoin de penser à autre chose.</p>
+      </div>
+      <div class="cocon-card">
+        <div class="icon"></div>
+        <h3>Masterclass en groupe</h3>
+        <p>Des sessions live collectives avec l'équipe Loulou, jamais en tête-à-tête individuel.</p>
+      </div>
+      <div class="cocon-card">
+        <div class="icon"></div>
+        <h3>Communauté modérée</h3>
+        <p>Un fil d'échange entre clientes, avec une modération active et bienveillante.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap newsletter">
+    <span class="eyebrow">Restons en contact</span>
+    <h2>Sois prévenue des nouveautés en premier.</h2>
+    <form id="newsForm">
+      <input type="email" placeholder="ton-email@exemple.com" required>
+      <button class="btn-primary" type="submit">S'inscrire</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Loulou Paris. Fait avec soin.</p>
+  <p style="margin-top:10px; font-size:0.82rem;">
+    <a href="mentions-legales.html" style="color:var(--ink-soft); margin:0 10px;">Mentions légales</a>
+    <a href="cgv.html" style="color:var(--ink-soft); margin:0 10px;">CGV</a>
+    <a href="confidentialite.html" style="color:var(--ink-soft); margin:0 10px;">Confidentialité</a>
+  </p>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  // ---- Catalogue produits (placeholder, à remplacer par le vrai catalogue) ----
+  // "available: false" = contrat/juridique pas encore bouclé pour ce produit -> achat bloqué.
+  // Passer un produit à "available: true" seulement une fois le contrat fournisseur signé.
+  // "available" = juridique/contrat bouclé (bloque tout achat si false).
+  // "stock" = "disponible" | "epuise" -> gère liste d'attente une fois available=true.
+  // "paymentLink" : URL du lien de paiement Stripe pour ce produit précis.
+  // Reste à null tant que le contrat fournisseur pour CE produit n'est pas signé.
+  // Une fois signé : passer "available" à true ET coller ici le lien Stripe créé pour ce produit.
+  const products = [
+    { tag: "Signature", name: "Palette Regard Cocon", price: "38 €", available: false, stock: "disponible", paymentLink: null, visual: "palette" },
+    { tag: "Signature", name: "Rouge Velours Berry", price: "24 €", available: false, stock: "disponible", paymentLink: null, visual: "lipstick" },
+    { tag: "Essentiels", name: "Fond de teint Peau Nue", price: "32 €", available: false, stock: "disponible", paymentLink: null, visual: "bottle" },
+    { tag: "Cocon", name: "Sérum éclat teint", price: "29 €", available: false, stock: "disponible", paymentLink: null, visual: "serum" },
+    { tag: "Essentiels", name: "Blush Poudre de Soie", price: "22 €", available: false, stock: "disponible", paymentLink: null, visual: "blush" },
+    { tag: "Sélection partenaire", name: "Pinceau biseauté pro", price: "16 €", available: false, stock: "disponible", paymentLink: null, visual: "brush" },
+  ];
+
+  // Illustrations dessinées à la main (vecteur), pas des photos — pour visualiser les produits
+  // sans reproduire des visuels appartenant à des fournisseurs tiers.
+  const productIcons = {
+    palette: `<svg viewBox="0 0 120 120" width="76" height="76">
+      <rect x="8" y="8" width="104" height="20" rx="6" fill="var(--berry-deep)"/>
+      <rect x="8" y="28" width="104" height="84" rx="8" fill="var(--white)" stroke="var(--berry-deep)" stroke-width="2"/>
+      <circle cx="32" cy="58" r="13" fill="var(--blush)"/>
+      <circle cx="60" cy="58" r="13" fill="var(--gold)"/>
+      <circle cx="88" cy="58" r="13" fill="var(--berry)"/>
+      <circle cx="32" cy="88" r="11" fill="var(--accent)"/>
+      <circle cx="60" cy="88" r="11" fill="var(--accent-2)"/>
+      <circle cx="88" cy="88" r="11" fill="var(--berry-deep)"/>
+    </svg>`,
+    lipstick: `<svg viewBox="0 0 120 120" width="60" height="90">
+      <path d="M42 10 L78 10 L74 40 L46 40 Z" fill="var(--berry)"/>
+      <rect x="44" y="40" width="32" height="48" fill="var(--gold)"/>
+      <rect x="40" y="88" width="40" height="24" rx="6" fill="var(--ink)"/>
+      <rect x="40" y="88" width="40" height="6" fill="var(--berry-deep)"/>
+    </svg>`,
+    bottle: `<svg viewBox="0 0 120 120" width="64" height="92">
+      <rect x="46" y="4" width="28" height="16" rx="3" fill="var(--gold)"/>
+      <rect x="36" y="20" width="48" height="92" rx="10" fill="var(--white)" stroke="var(--berry-deep)" stroke-width="2"/>
+      <rect x="40" y="55" width="40" height="53" rx="6" fill="var(--berry)" opacity="0.55"/>
+    </svg>`,
+    serum: `<svg viewBox="0 0 120 120" width="56" height="94">
+      <rect x="44" y="0" width="32" height="10" rx="3" fill="var(--ink)"/>
+      <rect x="50" y="10" width="20" height="26" fill="var(--gold)"/>
+      <rect x="38" y="36" width="44" height="68" rx="8" fill="var(--berry-deep)"/>
+      <rect x="46" y="50" width="28" height="40" rx="4" fill="var(--white)" opacity="0.25"/>
+    </svg>`,
+    blush: `<svg viewBox="0 0 120 120" width="78" height="78">
+      <circle cx="60" cy="60" r="52" fill="var(--white)" stroke="var(--gold)" stroke-width="4"/>
+      <circle cx="60" cy="60" r="36" fill="var(--accent)"/>
+      <circle cx="60" cy="60" r="36" fill="var(--blush)" opacity="0.35"/>
+    </svg>`,
+    brush: `<svg viewBox="0 0 120 120" width="58" height="98">
+      <ellipse cx="58" cy="24" rx="26" ry="20" fill="var(--berry)"/>
+      <ellipse cx="58" cy="24" rx="26" ry="20" fill="var(--ink)" opacity="0.08"/>
+      <rect x="52" y="40" width="12" height="28" fill="var(--gold)"/>
+      <rect x="55" y="68" width="6" height="48" fill="var(--ink)"/>
+    </svg>`,
+    handset: `<svg viewBox="0 0 120 120" width="90" height="60">
+      <circle cx="30" cy="60" r="19" fill="none" stroke="var(--gold)" stroke-width="6"/>
+      <circle cx="60" cy="60" r="19" fill="none" stroke="var(--berry-deep)" stroke-width="6"/>
+      <circle cx="90" cy="60" r="19" fill="none" stroke="var(--gold)" stroke-width="6"/>
+    </svg>`,
+  };
+
+  const grid = document.getElementById('productGrid');
+  function slugify(str){
+    return str.toLowerCase()
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+  }
+  products.forEach(p => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    let badge = '', btnLabel = "Ajouter", btnDisabled = '', action = 'add';
+    if (!p.available) {
+      badge = `<span class="soon-badge">Bientôt disponible</span>`;
+      btnLabel = "Pas encore en vente"; btnDisabled = 'disabled';
+    } else if (p.stock === "epuise") {
+      badge = `<span class="soon-badge sold-out">Épuisé</span>`;
+      btnLabel = "Rejoindre la liste d'attente"; action = 'waitlist';
+    } else if (!p.paymentLink) {
+      // Disponible et en stock, mais le lien de paiement n'a pas encore été créé côté Stripe.
+      btnLabel = "Achat bientôt activé"; btnDisabled = 'disabled';
+    } else {
+      btnLabel = "Acheter"; action = 'pay';
+    }
+    card.innerHTML = `
+      <div class="card-media">${productIcons[p.visual] || ''}${badge}</div>
+      <div class="card-body">
+        <span class="card-tag">${p.tag}</span>
+        <h3><a href="produit.html?id=${slugify(p.name)}" style="color:inherit; text-decoration:none;">${p.name}</a></h3>
+        <div class="card-actions">
+          <span class="price">${p.price}</span>
+          <button class="add-btn" ${btnDisabled}>${btnLabel}</button>
+        </div>
+      </div>`;
+    if (!btnDisabled) {
+      card.querySelector('.add-btn').addEventListener('click', () => {
+        if (action === 'pay') { window.location.href = p.paymentLink; }
+        else { showToast(`Inscrite en liste d'attente pour ${p.name}`); }
+      });
+    }
+    grid.appendChild(card);
+  });
+
+  // Parures de main — capsule "Habillez vos mains". Descriptions volontairement génériques
+  // (aucune marque de sac citée ou visible) : voir l'échange sur le risque de contrefaçon/parasitisme.
+  // Chaque modèle : 1er tirage de 30 pièces déjà vendu -> stock "epuise", liste d'attente uniquement.
+  const handSets = [
+    { name: "Vendôme", desc: "Sac à rabat matelassé noir, fermoir doré — nude rosé, or miroir, micro-perles.", carre: "145 €", ongles: "125 €", ensemble: "249 €" },
+    { name: "Rive Gauche", desc: "Sac cabas structuré noir, quincaillerie dorée — noir profond, lignes graphiques dorées.", carre: "145 €", ongles: "125 €", ensemble: "249 €" },
+    { name: "Saint-Honoré", desc: "Sac à main cuir camel, poignée rigide — crème, beige poudré, champagne.", carre: "145 €", ongles: "125 €", ensemble: "249 €" },
+  ];
+
+  const handGrid = document.getElementById('handGrid');
+  handSets.forEach(h => {
+    const card = document.createElement('div');
+    card.className = 'hand-card';
+    card.innerHTML = `
+      <div class="hand-media">${productIcons.handset}<span class="soon-badge sold-out">Épuisé — 1er tirage</span></div>
+      <div class="hand-body">
+        <h3>${h.name}</h3>
+        <p class="hand-desc">${h.desc}</p>
+        <div class="hand-lines">
+          <div><span>Carré de Main</span><span>${h.carre}</span></div>
+          <div><span>Coffret Ongles semi-sur-mesure</span><span>${h.ongles}</span></div>
+          <div><span>Ensemble</span><span>${h.ensemble}</span></div>
+        </div>
+        <button class="waitlist-btn">Rejoindre la liste d'attente</button>
+      </div>`;
+    card.querySelector('.waitlist-btn').addEventListener('click', () => showToast(`Inscrite en liste d'attente — ${h.name}`));
+    handGrid.appendChild(card);
+  });
+
+  const burgerBtn = document.getElementById('burgerBtn');
+  const navLinksEl = document.querySelector('.nav-links');
+  burgerBtn.addEventListener('click', () => {
+    const isOpen = navLinksEl.classList.toggle('open');
+    burgerBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+  navLinksEl.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => { navLinksEl.classList.remove('open'); burgerBtn.setAttribute('aria-expanded','false'); });
+  });
+
+  function showToast(msg){
+    const t = document.getElementById('toast');
+    t.classList.remove('cat-mode');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2600);
+  }
+
+  function showCatQuip(msg){
+    const t = document.getElementById('toast');
+    t.classList.add('cat-mode');
+    let glitter = '<div class="glitter-layer">';
+    for (let i = 0; i < 16; i++){
+      const gold = i % 3 === 0 ? ' gold' : '';
+      const top = Math.round(Math.random() * 90);
+      const left = Math.round(Math.random() * 92);
+      const size = 3 + Math.round(Math.random() * 4);
+      const delay = (Math.random() * 1.6).toFixed(2);
+      const dur = (1.1 + Math.random() * 1.2).toFixed(2);
+      glitter += `<span class="glitter-dot${gold}" style="top:${top}%; left:${left}%; width:${size}px; height:${size}px; animation-delay:${delay}s; animation-duration:${dur}s;"></span>`;
+    }
+    glitter += '</div>';
+    t.innerHTML = glitter + '<span class="quip-text"><span class="sparkle s1">✨</span> 🐾 ' + msg + ' 🐾 <span class="sparkle s2">✨</span><span class="sparkle s3">✨</span></span>';
+    t.classList.add('show');
+    setTimeout(() => { t.classList.remove('show'); t.classList.remove('cat-mode'); }, 10000);
+  }
+
+  // ---- Écran d'accueil : prénom + pensées du jour inspirées de Chaussettes ----
+  const catQuips = [
+    n => `${n}, Chaussettes valide ce choix d'un battement de queue.`,
+    n => `Petite pensée féline : ${n}, aujourd'hui sera doux comme du poil de chat.`,
+    n => `${n}, Chaussettes a encore piqué une chaussette ce matin — comme quoi, personne n'est parfait.`,
+    n => `Ronron du jour pour ${n} : tu illumines la pièce, même plus que le coin de soleil préféré de Chaussettes.`,
+    n => `${n}, Chaussettes te souhaite une journée aussi tranquille qu'une sieste de 16h.`,
+    n => `Pensée positive livrée par Chaussettes à ${n} : tu gères, même les jours de poils partout.`,
+    n => `${n}, comme Chaussettes face à une chaussette : tu es irrésistible aujourd'hui.`,
+    n => `Chaussettes approuve, ${n} — et il n'approuve pas grand-chose d'habitude.`,
+    n => `${n}, respire, souris : Chaussettes le fait bien 20h par jour sans effort.`,
+  ];
+  let userName = "toi";
+  const welcomeGateEl = document.getElementById('welcomeGate');
+  const welcomeNameEl = document.getElementById('welcomeName');
+  const welcomeEnterEl = document.getElementById('welcomeEnter');
+
+  function randomCatQuip(name){
+    const pick = catQuips[Math.floor(Math.random() * catQuips.length)];
+    return pick(name);
+  }
+
+  function enterSite(){
+    const val = welcomeNameEl.value.trim();
+    userName = val || "toi";
+    welcomeGateEl.classList.add('hidden');
+    showCatQuip(randomCatQuip(userName));
+  }
+  welcomeEnterEl.addEventListener('click', enterSite);
+  welcomeNameEl.addEventListener('keydown', (e) => { if (e.key === 'Enter') enterSite(); });
+
+  // Une pensée surprise de temps en temps, sur les clics de bouton du site (une fois entré).
+  document.body.addEventListener('click', (e) => {
+    if (!welcomeGateEl.classList.contains('hidden') || e.target.id === 'welcomeEnter') return;
+    if (e.target.tagName === 'BUTTON' && Math.random() < 0.3) {
+      showCatQuip(randomCatQuip(userName));
+    }
+  });
+
+  document.getElementById('newsForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    showToast("Merci, tu es inscrite ✓");
+    e.target.reset();
+  });
+
+  // Moteur de recommandation v1 : règles éditées par Loulou (occasion + ambiance -> teinte + fini).
+  // Prochaine étape possible : remplacer ce bloc par un appel à l'API Claude qui reçoit
+  // le profil peau détecté + ce contexte, et renvoie une recommandation en langage naturel,
+  // que l'on mappe ensuite sur les vraies teintes du catalogue (jamais sur un produit inventé).
+  const lookRules = {
+    quotidien:  { naturel: ["#C9738A", "fini nude, lumière naturelle"], sobre: ["#7C2740", "fini mat léger"], affirme: ["#A73B58", "fini satiné"], festif: ["#8C5E9C", "fini lumineux discret"] },
+    travail:    { naturel: ["#C9738A", "fini nude mat"], sobre: ["#7C2740", "fini mat, tenue longue"], affirme: ["#A73B58", "fini satiné mesuré"], festif: ["#8C5E9C", "fini lumineux léger"] },
+    ceremonie:  { naturel: ["#D9A441", "fini lumineux doré"], sobre: ["#7C2740", "fini satiné"], affirme: ["#A73B58", "fini intense, tenue longue"], festif: ["#8C5E9C", "fini pailleté"] },
+    deuil:      { naturel: ["#7C2740", "fini mat très léger"], sobre: ["#7C2740", "fini mat, discret"], affirme: ["#7C2740", "fini mat, discret"], festif: ["#7C2740", "fini mat, discret"] },
+    sortie:     { naturel: ["#C9738A", "fini frais"], sobre: ["#7C2740", "fini satiné"], affirme: ["#B85C4A", "fini intense"], festif: ["#8C5E9C", "fini pailleté, tenue longue"] },
+  };
+
+  document.getElementById('proposeLook').addEventListener('click', () => {
+    const occasion = document.getElementById('ctxOccasion').value;
+    const ambiance = document.getElementById('ctxAmbiance').value;
+    const [color, finish] = lookRules[occasion][ambiance];
+    selectedColor = color;
+    renderCanvas();
+    document.querySelectorAll('.swatch').forEach(s => s.classList.remove('selected'));
+    document.getElementById('ctxResult').textContent = `Suggestion : ${finish}.`;
+    if (window.onLookChanged) window.onLookChanged();
+  });
+
+  // ---- Simulateur (photo statique : fallback si aucun visage détecté) ----
+  const canvas = document.getElementById('simCanvas');
+  const ctx = canvas.getContext('2d');
+  let loadedImage = null;
+  window.selectedColor = "#A73B58";
+
+  const shades = ["#A73B58", "#C9738A", "#7C2740", "#D9A441", "#8C5E9C", "#B85C4A"];
+  const swatchWrap = document.getElementById('swatches');
+  shades.forEach((c, i) => {
+    const sw = document.createElement('div');
+    sw.className = 'swatch' + (i === 0 ? ' selected' : '');
+    sw.style.background = c;
+    sw.addEventListener('click', () => {
+      document.querySelectorAll('.swatch').forEach(s => s.classList.remove('selected'));
+      sw.classList.add('selected');
+      window.selectedColor = c;
+      renderCanvas();
+      if (window.onLookChanged) window.onLookChanged();
+    });
+    swatchWrap.appendChild(sw);
+  });
+
+  function placeholderCanvas(){
+    ctx.fillStyle = "#3a1f27";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle = "rgba(255,255,255,0.6)";
+    ctx.font = "18px Manrope, sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText("Active ta caméra ci-dessus", canvas.width/2, canvas.height/2);
+  }
+  placeholderCanvas();
+
+  function renderCanvas(){
+    if (window.faceModeActive) return; // le module de détection prend la main sur le dessin
+    if(!loadedImage){ placeholderCanvas(); return; }
+    ctx.drawImage(loadedImage, 0, 0, canvas.width, canvas.height);
+    // Overlay de secours (teinte globale semi-transparente), utilisé seulement si
+    // la détection de visage échoue sur cette image.
+    ctx.globalCompositeOperation = "multiply";
+    ctx.fillStyle = window.selectedColor + "33";
+    ctx.fillRect(0, canvas.height*0.55, canvas.width, canvas.height*0.3);
+    ctx.globalCompositeOperation = "source-over";
+  }
+
+  const dropZone = document.getElementById('dropZone');
+  const fileInput = document.getElementById('fileInput');
+  dropZone.addEventListener('click', () => fileInput.click());
+  fileInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if(!file) return;
+    const img = new Image();
+    img.onload = () => { loadedImage = img; window.currentLoadedImage = img; renderCanvas(); if (window.onPhotoLoaded) window.onPhotoLoaded(img); };
+    img.src = URL.createObjectURL(file);
+  });
+  ['dragover','drop'].forEach(evt => {
+    dropZone.addEventListener(evt, e => e.preventDefault());
+  });
+  dropZone.addEventListener('drop', (e) => {
+    const file = e.dataTransfer.files[0];
+    if(!file) return;
+    const img = new Image();
+    img.onload = () => { loadedImage = img; window.currentLoadedImage = img; renderCanvas(); if (window.onPhotoLoaded) window.onPhotoLoaded(img); };
+    img.src = URL.createObjectURL(file);
+  });
+</script>
+
+<script type="module">
+  // ---- Module de détection faciale (MediaPipe FaceLandmarker) ----
+  // Tourne entièrement dans le navigateur : le modèle est téléchargé une fois (CDN),
+  // ensuite chaque image/frame est traitée localement, rien n'est envoyé à un serveur.
+  import { FaceLandmarker, FilesetResolver } from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14";
+
+  const canvas = document.getElementById('simCanvas');
+  const ctx = canvas.getContext('2d');
+  const video = document.getElementById('simVideo');
+  const skinResult = document.getElementById('skinResult');
+  const simNote = document.getElementById('simNote');
+
+  // Contour extérieur des lèvres (indices canoniques MediaPipe FaceMesh).
+  const LIPS_OUTER = [61,185,40,39,37,0,267,269,270,409,291,375,321,405,314,17,84,181,91,146];
+  const CHEEK_R = 50, CHEEK_L = 280, FOREHEAD = 10;
+  const SMOOTH_INDICES = LIPS_OUTER.concat([CHEEK_R, CHEEK_L, FOREHEAD]);
+  const SMOOTH_ALPHA = 0.4; // plus bas = plus lisse mais plus "en retard" sur le mouvement réel
+  let smoothMap = {};
+  function smoothLandmarks(landmarks){
+    const out = landmarks.slice();
+    SMOOTH_INDICES.forEach(idx => {
+      const raw = landmarks[idx];
+      const prev = smoothMap[idx];
+      const sm = prev
+        ? { x: SMOOTH_ALPHA*raw.x + (1-SMOOTH_ALPHA)*prev.x, y: SMOOTH_ALPHA*raw.y + (1-SMOOTH_ALPHA)*prev.y }
+        : { x: raw.x, y: raw.y };
+      smoothMap[idx] = sm;
+      out[idx] = sm;
+    });
+    return out;
+  }
+  let mirrorEnabled = true; // ajustable via le bouton "Inverser l'image"
+
+  let faceLandmarker = null;
+  let mode = "camera"; // "photo" | "camera" — caméra par défaut, visible dès l'ouverture du site
+  let stream = null;
+  let rafId = null;
+  let cameraSession = 0; // incrémenté à chaque démarrage : empêche deux boucles de tourner en parallèle
+  let cameraRunning = false;
+
+  async function initLandmarker(){
+    if (faceLandmarker) return faceLandmarker;
+    simNote.textContent = "Chargement du modèle de détection de visage...";
+    const vision = await FilesetResolver.forVisionTasks(
+      "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm"
+    );
+    faceLandmarker = await FaceLandmarker.createFromOptions(vision, {
+      baseOptions: {
+        modelAssetPath: "https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task"
+      },
+      runningMode: "IMAGE",
+      numFaces: 1
+    });
+    simNote.textContent = "Détection de visage active : la teinte se place sur les lèvres et les joues à partir des repères du visage.";
+    return faceLandmarker;
+  }
+
+  function toPixels(landmark){
+    return { x: landmark.x * canvas.width, y: landmark.y * canvas.height };
+  }
+
+  function sampleSkinTone(landmarks, mirrored){
+    const points = [FOREHEAD, CHEEK_R, CHEEK_L].map(i => toPixels(landmarks[i]));
+    let r=0,g=0,b=0,n=0;
+    points.forEach(p => {
+      // getImageData lit toujours les pixels réels du canvas, jamais affectés par une transformation
+      // (contrairement aux tracés) : en mode caméra (image inversée à l'affichage), il faut donc
+      // viser le pixel symétrique pour lire la bonne zone du visage.
+      const px = mirrored ? (canvas.width - p.x) : p.x;
+      const data = ctx.getImageData(Math.max(0,px-3), Math.max(0,p.y-3), 6, 6).data;
+      for (let i=0; i<data.length; i+=4){ r+=data[i]; g+=data[i+1]; b+=data[i+2]; n++; }
+    });
+    r=Math.round(r/n); g=Math.round(g/n); b=Math.round(b/n);
+    let undertone = "neutre";
+    if (r - b > 25) undertone = "chaud";
+    else if (b - r > 10) undertone = "froid";
+    skinResult.textContent = `Carnation détectée : sous-ton ${undertone}.`;
+    return { r, g, b, undertone };
+  }
+
+  function drawMakeup(landmarks){
+    // Lèvres : polygone rempli sur le contour détecté.
+    ctx.globalCompositeOperation = "multiply";
+    ctx.fillStyle = window.selectedColor + "cc";
+    ctx.beginPath();
+    LIPS_OUTER.forEach((idx, i) => {
+      const p = toPixels(landmarks[idx]);
+      if (i === 0) ctx.moveTo(p.x, p.y); else ctx.lineTo(p.x, p.y);
+    });
+    ctx.closePath();
+    ctx.fill();
+
+    // Joues : dégradé doux, positionné sur les repères de joue.
+    [CHEEK_R, CHEEK_L].forEach(idx => {
+      const p = toPixels(landmarks[idx]);
+      const radius = canvas.width * 0.09;
+      const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, radius);
+      grad.addColorStop(0, window.selectedColor + "55");
+      grad.addColorStop(1, window.selectedColor + "00");
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, radius, 0, Math.PI*2);
+      ctx.fill();
+    });
+    ctx.globalCompositeOperation = "source-over";
+  }
+
+  async function detectOnImage(img){
+    const lm = await initLandmarker();
+    if (lm.getOptions?.().runningMode !== "IMAGE") await lm.setOptions({ runningMode: "IMAGE" });
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    const result = lm.detect(canvas);
+    if (result.faceLandmarks && result.faceLandmarks.length){
+      window.faceModeActive = true;
+      sampleSkinTone(result.faceLandmarks[0]);
+      drawMakeup(result.faceLandmarks[0]);
+    } else {
+      window.faceModeActive = false;
+      skinResult.textContent = "Aucun visage détecté sur cette photo — aperçu couleur simplifié affiché à la place.";
+    }
+  }
+
+  async function startCamera(){
+    if (cameraRunning) return; // déjà en cours : on ignore un second déclenchement
+    cameraRunning = true;
+    const mySession = ++cameraSession; // identifie cette session précise
+    smoothMap = {}; // repart d'un lissage neutre à chaque nouveau démarrage
+    try {
+      stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } });
+    } catch (err){
+      simNote.textContent = "Caméra refusée ou indisponible — active-la dans les réglages de ton navigateur, ou utilise le mode photo.";
+      cameraRunning = false;
+      return;
+    }
+    video.srcObject = stream;
+    await video.play();
+    const lm = await initLandmarker();
+    await lm.setOptions({ runningMode: "VIDEO" });
+    window.faceModeActive = true;
+    const loop = async () => {
+      // Si le mode a changé OU qu'une session plus récente a démarré entre-temps, cette boucle s'arrête d'elle-même.
+      if (mode !== "camera" || mySession !== cameraSession) return;
+      const result = lm.detectForVideo(video, performance.now());
+      // Effet miroir optionnel (réglable via le bouton) : inverse le dessin horizontalement
+      // pour que ça se comporte comme un vrai miroir sur les appareils où la caméra ne le fait pas déjà.
+      ctx.save();
+      if (mirrorEnabled) { ctx.translate(canvas.width, 0); ctx.scale(-1, 1); }
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+      if (result.faceLandmarks && result.faceLandmarks.length){
+        const sm = smoothLandmarks(result.faceLandmarks[0]);
+        sampleSkinTone(sm, mirrorEnabled);
+        drawMakeup(sm);
+      }
+      ctx.restore();
+      rafId = requestAnimationFrame(loop);
+    };
+    loop();
+  }
+
+  function stopCamera(){
+    cameraSession++; // invalide toute boucle encore en vol
+    cameraRunning = false;
+    if (rafId) cancelAnimationFrame(rafId);
+    if (stream) stream.getTracks().forEach(t => t.stop());
+    stream = null;
+  }
+
+  window.onPhotoLoaded = (img) => { if (mode === "photo") detectOnImage(img); };
+  window.onLookChanged = () => {
+    if (mode === "photo" && window.currentLoadedImage) detectOnImage(window.currentLoadedImage);
+  };
+
+  const modePhotoBtn = document.getElementById('modePhotoBtn');
+  const modeCameraBtn = document.getElementById('modeCameraBtn');
+  const dropZoneEl = document.getElementById('dropZone');
+  const cameraStartEl = document.getElementById('cameraStart');
+  const mirrorToggleEl = document.getElementById('mirrorToggle');
+
+  modePhotoBtn.addEventListener('click', () => {
+    mode = "photo";
+    stopCamera();
+    window.faceModeActive = false;
+    modePhotoBtn.classList.add('active'); modeCameraBtn.classList.remove('active');
+    dropZoneEl.style.display = 'block'; cameraStartEl.style.display = 'none';
+    mirrorToggleEl.style.display = 'none';
+    video.style.display = 'none';
+  });
+
+  modeCameraBtn.addEventListener('click', () => {
+    mode = "camera";
+    modeCameraBtn.classList.add('active'); modePhotoBtn.classList.remove('active');
+    dropZoneEl.style.display = 'none';
+    cameraStartEl.style.display = cameraRunning ? 'none' : 'block';
+    mirrorToggleEl.style.display = 'block';
+  });
+
+  cameraStartEl.addEventListener('click', () => {
+    cameraStartEl.style.display = 'none';
+    startCamera();
+  });
+
+  mirrorToggleEl.addEventListener('click', () => {
+    mirrorEnabled = !mirrorEnabled;
+  });
+</script>
+
+</body>
+</html>
